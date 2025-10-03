@@ -16,8 +16,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
+    - name: Build
+      run: dotnet build -c Release
+
     - name: Pack
-      run: dotnet pack MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared.csproj -c Release
+      run: dotnet pack -c Release --no-build
 
     - name: Publish to GitHub packages 
       run: dotnet nuget push /home/runner/work/MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared/bin/Release/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
