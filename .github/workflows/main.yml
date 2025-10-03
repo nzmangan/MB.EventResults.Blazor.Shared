@@ -29,7 +29,7 @@ jobs:
       run: ls -R
   
     - name: Pack NuGet package
-      run: dotnet pack ./MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared.csproj -c Release --no-build --version "$PACKAGE_VERSION" -o ./artifacts
+      run: dotnet pack ./MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared.csproj -c Release --no-build --version "$PACKAGE_VERSION" -o "$GITHUB_WORKSPACE/artifacts"
 
     - name: Push to NuGet.org
-      run: dotnet nuget push ./artifacts/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push "$GITHUB_WORKSPACE/*.nupkg" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
