@@ -1,8 +1,8 @@
 name: publish to nuget
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*.*.*'
 jobs:
   publish:
     name: build, pack & publish
@@ -15,9 +15,18 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 8.0.x
+ 
+    - name: Extract version from tag
+      run: echo "PACKAGE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-    - name: Pack
-      run: dotnet pack MB.EventResults.Blazor.Shared\\MB.EventResults.Blazor.Shared.csproj -c Release
+    - name: Restore dependencies
+      run: dotnet restore
 
-    - name: Publish to GitHub packages 
-      run: dotnet nuget push /home/runner/work/MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared/bin/Release/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Pack NuGet package
+      run: dotnet pack --configuration Release --no-build --version $PACKAGE_VERSION -o ./artifacts
+
+    - name: Push to NuGet.org
+      run: dotnet nuget push "./artifacts/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

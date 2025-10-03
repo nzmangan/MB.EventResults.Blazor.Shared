@@ -7,10 +7,16 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>1.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <UseNugetPackage>true</UseNugetPackage>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MB.OResults.Core" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseNugetPackage)' == 'true'">
+    <PackageReference Include="MB.OResults.Core" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseNugetPackage)' != 'true'">
+    <ProjectReference Include="..\..\..\MB.OResults.Core\MB.OResults.Core\MB.OResults.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
