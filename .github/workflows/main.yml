@@ -25,6 +25,9 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
+    - name: List files
+      run: ls -R
+  
     - name: Pack NuGet package
       run: dotnet pack MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared.csproj --configuration Release --no-build --version "$PACKAGE_VERSION" -o ./artifacts
 
