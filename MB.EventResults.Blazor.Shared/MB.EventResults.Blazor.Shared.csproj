@@ -5,8 +5,6 @@
     <Authors>nzmangan</Authors>
     <RepositoryUrl>https://github.com/nzmangan/MB.EventResults.Blazor.Shared</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.0.0</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <UseNugetPackage>true</UseNugetPackage>
   </PropertyGroup>
   <ItemGroup>
