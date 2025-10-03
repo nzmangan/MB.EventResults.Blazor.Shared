@@ -26,7 +26,8 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Pack NuGet package
-      run: dotnet pack --configuration Release --no-build --version $PACKAGE_VERSION -o ./artifacts
+      run: dotnet pack --configuration Release --no-build --version $PACKAGE_VERSION
 
     - name: Push to NuGet.org
       run: dotnet nuget push "./artifacts/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push /home/runner/work/MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared/bin/Release/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
