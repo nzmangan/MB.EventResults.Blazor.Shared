@@ -32,4 +32,4 @@ jobs:
       run: dotnet pack ./MB.EventResults.Blazor.Shared/MB.EventResults.Blazor.Shared.csproj -c Release --no-build -p:Version="$PACKAGE_VERSION" -o "./artifacts"
 
     - name: Push to NuGet.org
-      run: dotnet nuget push "./*.nupkg" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push "./artifacts/*.nupkg" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
